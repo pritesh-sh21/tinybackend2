@@ -37,7 +37,15 @@ var userSchema = new mongoose.Schema(
     purchases: {
       type: Array,
       default: []
-    }
+    },
+    createdCommunity: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Community'
+    },
+    organizedSessions: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Session'
+    }]
   },
   { timestamps: true }
 );
