@@ -27,16 +27,20 @@ exports.getPerson = (req, res) => {
 };
 
 // Create a new person
-exports.createPerson = (req, res) => {
-  const person = new People(req.body);
-  person.save((err, newPerson) => {
-    if (err) {
-      return res.status(400).json({
-        error: 'Failed to create person'
-      });
-    }
-    res.status(201).json(newPerson);
-  });
+exports.createPerson = async(req, res) => {
+try{
+  console.log(req.body);
+  const people = new People(req.body);
+  await people.save();
+  res.status(201).json(people);
+
+}catch(error){
+  console.log(error);
+  res.status(500).json({error:'Failed To create the People'})
+}
+
+
+
 };
 
 // Update a person

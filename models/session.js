@@ -13,21 +13,33 @@ const sessionSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  attendees: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
-  feedback: {
-    type: String
-  },
-  level: {
-    type: Number,
+  category: {
+    type: String,
     required: true
   },
+  
+  district: {
+    type: String,
+    required: true
+  },
+  state: {
+    type: String,
+    required: true
+  },
+  
+  attendees: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    level: {
+      type: Number,
+    },
+  }],
+  
+  
   community: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Community',
-    required: true
+    // required: true
   }
 });
 

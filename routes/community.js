@@ -15,7 +15,7 @@ const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
 
 
 
-router.post("/community/create/",
+router.post("/community/create",
 
 createCommunity
 );

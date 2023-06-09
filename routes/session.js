@@ -22,7 +22,9 @@ router.param("userId", getUserById);
 router.get('/session/:sessionId', isSignedIn, getSession);
 
 // Create a new session
-router.post('/session/create/:userId', isSignedIn, isAuthenticated, isAdmin, createSession);
+// router.post('/session/create/:userId', isSignedIn, isAuthenticated, isAdmin, createSession);
+
+router.post('/session/create',   createSession);
 
 // Update a session
 router.put('/session/:sessionId', isSignedIn, isAuthenticated, isAdmin, updateSession);

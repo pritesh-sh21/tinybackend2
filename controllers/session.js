@@ -15,17 +15,18 @@ exports.getSession = (req, res) => {
 };
 
 // Create a new session
-exports.createSession = (req, res) => {
-  const session = new Session(req.body);
-  session.save((err, session) => {
-    if (err) {
-      return res.status(400).json({
-        error: 'Failed to create session'
-      });
-    }
-    res.json(session);
-  });
-};
+exports.createSession = async(req, res) => {
+  try{
+    console.log(req.body);
+    const session = new Session(req.body);
+    await session.save();
+    res.status(201).json(session);
+  
+  }catch(error){
+    console.log(error);
+    res.status(500).json({error:'Failed To create the Session'})
+  }
+}
 
 // Update a session
 exports.updateSession = (req, res) => {

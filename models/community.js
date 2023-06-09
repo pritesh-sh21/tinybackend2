@@ -5,7 +5,11 @@ const communitySchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  location: {
+  state: {
+    type: String,
+    required: true
+  },
+  district: {
     type: String,
     required: true
   },

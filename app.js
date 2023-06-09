@@ -13,6 +13,7 @@ const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const sessionRoutes = require("./routes/session");
 const communityRoutes=require("./routes/community");
+const peopleRoutes=require("./routes/people");
 // const standardRoutes = require("./routes/standard");
 // const studentRoutes = require("./routes/student");
 // const teacherRoutes = require("./routes/teacher");
@@ -52,6 +53,7 @@ app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", communityRoutes);
 app.use("/api", sessionRoutes);
+app.use("/api", peopleRoutes);
 
 // app.use("/api", standardRoutes);
 // app.use("/api", teacherRoutes);

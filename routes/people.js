@@ -20,7 +20,7 @@ router.get('/people', getAllPeople);
 router.get('/people/:personId', getPerson);
 
 // Create a new person
-router.post('/people', createPerson);
+router.post('/people/create', createPerson);
 
 // Update a person
 router.put('/people/:personId', updatePerson);

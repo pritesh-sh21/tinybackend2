@@ -26,13 +26,18 @@ exports.getCommunity = async (req, res) => {
 
 // Create a new community
 exports.createCommunity = async (req, res) => {
-  const { name, location, description } = req.body;
   try {
-    console.log("hello");
-    const community = await Community.create({ name, location, description });
+    console.log(req.body.name);
+    console.log(req.body.description);
+    console.log(req.body.state);
+    console.log(req.body.district);
+
+    const community = new Community(req.body);
+    await community.save();
     res.status(201).json(community);
   } catch (error) {
-    res.status(500).json({ error: "Failed to create the community" });
+    console.log(error);
+    res.status(500).json({ error: 'Failed to create the community' });
   }
 };
 
