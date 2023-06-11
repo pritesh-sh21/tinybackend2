@@ -1,6 +1,8 @@
 const Session = require('../models/session');
 const Community = require('../models/community');
 const { isAuthenticated } = require('./auth');
+
+
 // Get a session by ID
 exports.getSession = (req, res) => {
   const sessionId = req.params.sessionId;
@@ -21,9 +23,12 @@ exports.createSession = async (req, res) => {
   try {
     const { communityId } = req.params;
     const sessionData = req.body;
-
+    const userId = req.body.user._id; // Get the user ID from req.body
+    console.log(userId)
     // Create a new session
     const session = new Session(sessionData);
+    session.userId.push(userId); // Add the user ID to the userIds array
+    session.community = communityId; // Set the community ID in the session
     await session.save();
 
     // Push the session ID into the session_ids attribute of the community schema
@@ -137,17 +142,18 @@ exports.postCommId = async (req, res) => {
   const { communityId } = req.params;
   try {
     const community = await Community.findById(communityId);
-   
+
     if (!community) {
       return res.status(404).json({ error: 'Community not found' });
     }
-    console.log(req.body);
-    const { Userid } = req.body;
-    community.userId.push(Userid);
+    const Userid = req.body._id;
+    if (Userid)
+      community.userId.push(Userid);
+    else
+      res.status(500).json({ error: 'Internal server error' });
 
     const updatedCommunity = await community.save();
 
-    console.log('Updated Community:', updatedCommunity);
     res.json(updatedCommunity);
 
   } catch (err) {

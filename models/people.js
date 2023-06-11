@@ -30,12 +30,23 @@ const peopleSchema = new mongoose.Schema({
   community: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Community',
-
   },
   sessions: [{
     type: mongoose.Schema.ObjectId,
-    ref: 'Session'
+    ref: 'Session',
+    benefit:{
+      type:Boolean,
+    },
+    attended:{
+      type:Boolean,
+    }
   }],
+  userId: [{
+    type: mongoose.Schema.ObjectId,
+    ref: 'User'
+  }],
+  diseaseStatus:String,
+  lastCheckup:Date,
   benefited:String,
   Attendance:Boolean,
 

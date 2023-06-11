@@ -17,7 +17,7 @@ const sessionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  
+
   district: {
     type: String,
     required: true
@@ -26,7 +26,7 @@ const sessionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  
+
   attendees: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -34,8 +34,11 @@ const sessionSchema = new mongoose.Schema({
       type: Number,
     },
   }],
-  
-  
+
+  userId: [{
+    type: mongoose.Schema.ObjectId,
+    ref: 'User'
+  }],
   community: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Community',

@@ -40,14 +40,14 @@ mongoose
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-const corsOptions = {
-  origin: '*',
-  credentials: true,
-  exposedHeaders: ['Content-Length', 'Authorization', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Headers'],
-};
+// const corsOptions = {
+//   origin: '*',
+//   credentials: true,
+//   exposedHeaders: ['Content-Length', 'Authorization', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Headers'],
+// };
 
-app.use(cors(corsOptions));
-// app.use(cors({ credentials: true,origin: 'http://localhost:3000'}));
+// app.use(cors(corsOptions));
+app.use(cors({ credentials: true,origin: 'http://localhost:3000'}));
 
 //My Routes
 app.get("/", (req, res) => {

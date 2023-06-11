@@ -1,5 +1,5 @@
 const People = require('../models/people');
-const Session=require('../models/session')
+const Session = require('../models/session')
 // Get all people
 exports.getAllPeople = (req, res) => {
   People.find()
@@ -53,9 +53,12 @@ exports.createPerson = async (req, res) => {
 
 // Update a person
 exports.updatePerson = (req, res) => {
+  const { personId } = req.params;
+  const { sessions } = req.body;
+
   People.findByIdAndUpdate(
-    req.params.personId,
-    { $set: req.body },
+    personId,
+    { $push: { sessions: sessions } },
     { new: true, useFindAndModify: false },
     (err, updatedPerson) => {
       if (err) {
@@ -67,6 +70,7 @@ exports.updatePerson = (req, res) => {
     }
   );
 };
+
 
 // Delete a person
 exports.deletePerson = (req, res) => {
