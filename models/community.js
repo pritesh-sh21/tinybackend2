@@ -21,14 +21,16 @@ const communitySchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'People'
   }],
-  coordinatorId: {
+  userId: [{
     type: mongoose.Schema.ObjectId,
     ref: 'User'
-  },
+  }],
   sessions: [{
     type: mongoose.Schema.ObjectId,
     ref: 'Session'
-  }]
+  }],
+
+
 });
 
 const Community = mongoose.model('Community', communitySchema);

@@ -1,5 +1,6 @@
 const Session = require('../models/session');
-
+const Community = require('../models/community');
+const { isAuthenticated } = require('./auth');
 // Get a session by ID
 exports.getSession = (req, res) => {
   const sessionId = req.params.sessionId;
@@ -10,23 +11,33 @@ exports.getSession = (req, res) => {
           error: 'Session not found'
         });
       }
+      // console.log(session);
       res.json(session);
     });
 };
 
 // Create a new session
-exports.createSession = async(req, res) => {
-  try{
-    console.log(req.body);
-    const session = new Session(req.body);
+exports.createSession = async (req, res) => {
+  try {
+    const { communityId } = req.params;
+    const sessionData = req.body;
+
+    // Create a new session
+    const session = new Session(sessionData);
     await session.save();
+
+    // Push the session ID into the session_ids attribute of the community schema
+    await Community.updateOne(
+      { _id: communityId },
+      { $push: { sessions: session._id } }
+    );
+
     res.status(201).json(session);
-  
-  }catch(error){
-    console.log(error);
-    res.status(500).json({error:'Failed To create the Session'})
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to create the session' });
   }
-}
+};
 
 // Update a session
 exports.updateSession = (req, res) => {
@@ -98,3 +109,51 @@ exports.removeAttendee = (req, res) => {
     }
   );
 };
+
+//To retrieve all sessions attended by a particular community
+exports.getSessionByCommunity = async (req, res) => {
+  const { communityId } = req.params;
+  try {
+    const community = await Community.findById(communityId);
+
+    if (!community) {
+      return res.status(404).json({ error: 'Community not found' });
+    }
+    const auth = isAuthenticated
+    const sessionIds = community.sessions;
+
+    const sessions = await Session.find({ _id: { $in: sessionIds } });
+
+    console.log('Sessions attended by Community', communityId);
+    console.log(sessions);
+    res.json(sessions);
+  } catch (err) {
+    console.error('Error retrieving sessions:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.postCommId = async (req, res) => {
+  const { communityId } = req.params;
+  try {
+    const community = await Community.findById(communityId);
+   
+    if (!community) {
+      return res.status(404).json({ error: 'Community not found' });
+    }
+    console.log(req.body);
+    const { Userid } = req.body;
+    community.userId.push(Userid);
+
+    const updatedCommunity = await community.save();
+
+    console.log('Updated Community:', updatedCommunity);
+    res.json(updatedCommunity);
+
+  } catch (err) {
+    console.error('Error retrieving sessions:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+

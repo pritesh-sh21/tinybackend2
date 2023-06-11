@@ -12,31 +12,33 @@ const peopleSchema = new mongoose.Schema({
   fatherName: String,
   motherName: String,
   dob: Date,
-  disease:String, 
-    selfEducation: String,
-    childEducationStatus: Boolean,
+  disease: String,
+  selfEducation: String,
+  childEducationStatus: Boolean,
   sessionAttendance: [{
     campName: String,
     date: Date,
     feedback: String,
     comments: String
   }],
-  employmentStatus:Boolean,
+  employmentStatus: Boolean,
   welfareSchemes: Boolean,
-    familySize: Number,
-    dependentChildren: Number,
-    elderlyFamilyMembers: Number,
-  income:Number,
+  familySize: Number,
+  dependentChildren: Number,
+  elderlyFamilyMembers: Number,
+  income: Number,
   community: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Community',
-    
+
   },
   sessions: [{
     type: mongoose.Schema.ObjectId,
     ref: 'Session'
   }],
-  
+  benefited:String,
+  Attendance:Boolean,
+
 });
 
 const People = mongoose.model('People', peopleSchema);

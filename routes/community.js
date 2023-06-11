@@ -15,21 +15,18 @@ const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
 
 
 
-router.post("/community/create",
+router.post("/community/create",createCommunity);
 
-createCommunity
-);
-
-router.get("/community/all",isSignedIn,isAuthenticated,isAdmin,getAllCommunities);
+router.get("/community/all",getAllCommunities);
 
 
 
 
-router.get("/community/:commId",isSignedIn,isAuthenticated,isAdmin,getCommunity);
+router.get("/community/:commId",getCommunity);
 
-router.post("/community/:commId",isSignedIn,isAuthenticated,isAdmin,updateCommunity);
+router.put("/community/:commId",updateCommunity);
 
-router.delete("/community/:commId",isSignedIn,isAuthenticated,isAdmin,deleteCommunity)
+router.delete("/community/:commId",deleteCommunity);
 
 
 module.exports=router;

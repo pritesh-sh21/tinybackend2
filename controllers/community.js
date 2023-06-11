@@ -27,10 +27,7 @@ exports.getCommunity = async (req, res) => {
 // Create a new community
 exports.createCommunity = async (req, res) => {
   try {
-    console.log(req.body.name);
-    console.log(req.body.description);
-    console.log(req.body.state);
-    console.log(req.body.district);
+    
 
     const community = new Community(req.body);
     await community.save();
@@ -44,6 +41,7 @@ exports.createCommunity = async (req, res) => {
 // Update a community
 exports.updateCommunity = async (req, res) => {
   try {
+    console.log(req.body)
     const community = await Community.findByIdAndUpdate(
       req.params.commId,
       req.body,

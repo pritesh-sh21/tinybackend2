@@ -8,15 +8,15 @@ const uuidv1 = require("uuid/v1");
 
 
 exports.getAllUser = (req, res) => {
-    User.find({}, (err, users) => {
-      if (err) {
-        res.status(500).send(err);
-      } else {
-        res.status(200).json(users);
-      }
-    });
-  };
-  
+  User.find({}, (err, users) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).json(users);
+    }
+  });
+};
+
 
 exports.getUserById = (req, res, next, id) => {
   console.log(id);
@@ -32,7 +32,7 @@ exports.getUserById = (req, res, next, id) => {
     // console.log(req.profile);
     req.profile = user;
 
-    
+
     next();
   });
 };
