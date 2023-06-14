@@ -32,7 +32,7 @@ const peopleSchema = new mongoose.Schema({
     ref: 'Community',
   },
   sessions: [{
-    type: mongoose.Schema.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Session',
     benefit:{
       type:Boolean,
@@ -42,7 +42,7 @@ const peopleSchema = new mongoose.Schema({
     }
   }],
   userId: [{
-    type: mongoose.Schema.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }],
   diseaseStatus:String,

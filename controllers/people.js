@@ -52,13 +52,31 @@ exports.createPerson = async (req, res) => {
 
 
 // Update a person
-exports.updatePerson = (req, res) => {
-  const { personId } = req.params;
-  const { sessions } = req.body;
 
+// exports.updatePerson = (req, res) => {
+//   const { personId } = req.params;
+//   const { sessions } = req.body;
+
+//   People.findByIdAndUpdate(
+//     personId,
+//     { $push: { sessions: { $each: sessions } } },
+//     { new: true, useFindAndModify: false },
+//     (err, updatedPerson) => {
+//       if (err) {
+//         console.error(err);
+//         return res.status(400).json({
+//           error: 'Failed to update person'
+//         });
+//       }
+//       res.json(updatedPerson);
+//     }
+//   );
+// };
+// Update a person
+exports.updatePerson = (req, res) => {
   People.findByIdAndUpdate(
-    personId,
-    { $push: { sessions: sessions } },
+    req.params.personId,
+    { $set: req.body },
     { new: true, useFindAndModify: false },
     (err, updatedPerson) => {
       if (err) {
@@ -70,6 +88,7 @@ exports.updatePerson = (req, res) => {
     }
   );
 };
+
 
 
 // Delete a person
