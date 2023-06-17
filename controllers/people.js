@@ -74,9 +74,13 @@ exports.createPerson = async (req, res) => {
 // };
 // Update a person
 exports.updatePerson = (req, res) => {
+  console.log(req.body);
   People.findByIdAndUpdate(
     req.params.personId,
-    { $set: req.body },
+    {
+      $set: req.body,
+     
+    },
     { new: true, useFindAndModify: false },
     (err, updatedPerson) => {
       if (err) {

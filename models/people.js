@@ -32,8 +32,10 @@ const peopleSchema = new mongoose.Schema({
     ref: 'Community',
   },
   sessions: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Session',
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Session',
+    },
     benefit:{
       type:Boolean,
     },
