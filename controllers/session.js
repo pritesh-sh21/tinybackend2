@@ -1,7 +1,7 @@
 const Session = require('../models/session');
 const Community = require('../models/community');
 const { isAuthenticated } = require('./auth');
-
+const User=require('../models/user')
 
 // Get a session by ID
 exports.getSession = (req, res) => {
@@ -35,6 +35,12 @@ exports.createSession = async (req, res) => {
     await Community.updateOne(
       { _id: communityId },
       { $push: { sessions: session._id } }
+    );
+
+    // Push the session ID into the organizedSessions array of the user schema
+    await User.updateOne(
+      { _id: userId },
+      { $push: { organizedSessions: session._id } }
     );
 
     res.status(201).json(session);
