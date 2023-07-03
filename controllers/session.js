@@ -1,7 +1,7 @@
 const Session = require('../models/session');
 const Community = require('../models/community');
 const { isAuthenticated } = require('./auth');
-const User=require('../models/user')
+const User = require('../models/user')
 
 // Get a session by ID
 exports.getSession = (req, res) => {
@@ -16,6 +16,7 @@ exports.getSession = (req, res) => {
       // console.log(session);
       res.json(session);
     });
+    
 };
 
 // Create a new session
@@ -168,4 +169,15 @@ exports.postCommId = async (req, res) => {
   }
 };
 
-
+exports.getAllSession = async (req, res)=>{
+  try {
+    const communitites = await Community.find();
+    const sessionList=communitites.flatMap(comm=>{
+         return comm.sessions;
+    })
+    res.json(sessionList)
+  } catch (err) {
+    console.error('Error retrieving sessions:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}

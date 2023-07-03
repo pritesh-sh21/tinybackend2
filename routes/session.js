@@ -10,6 +10,7 @@ const {
   removeAttendee,
   getSessionByCommunity,
   postCommId,
+  getAllSession,
   
 } = require('../controllers/session');
 
@@ -23,6 +24,7 @@ router.param("userId", getUserById);
 
 // Get a session by ID
 router.get('/session_details/:sessionId', getSession);
+router.get('/session/all', getAllSession);
 
 // Create a new session
 // router.post('/session/create/:userId', isSignedIn, isAuthenticated, isAdmin, createSession);
