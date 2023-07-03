@@ -168,7 +168,7 @@ exports.postCommId = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
-
+// this is demo for git 
 exports.getAllSession = async (req, res)=>{
   try {
     const communitites = await Community.find();
