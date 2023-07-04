@@ -4,6 +4,8 @@ const Community = require("../models/community");
 exports.getAllCommunities = async (req, res) => {
   try {
     const communities = await Community.find();
+    communities.sort((a, b) => b.sessions.length - a.sessions.length)
+    console.log(communities)
     res.json(communities);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch communities" });
